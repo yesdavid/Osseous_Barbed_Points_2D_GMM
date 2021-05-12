@@ -1,0 +1,51 @@
+Site,Location,Latitude ,Longitude ,ID,ID_tip,ID_base,Laboratory_number,Age_C14_BP,SD,Period ,Age_calBP,Techno-complex ,Typology,Reference
+Abelskov ,Denmark,56.2544,14.0718,ABL_1,ABL_1_tip,NA,AAR_6266,8570,65,Early Holocene,9693-9455,Maglemosian,Type 8/Atypical base,Andersen and Petersen 2009
+Ved Halleby A,Denmark,55.5777,11.2858,VHA_1,NA,VHA_1_basis,KA_6333,8610,90,Early Holocene,9895-9460,Maglemosian,Type 4/Torning-type,Andersen and Petersen 2009
+Tunebjerg Ost,Denmark,55.4212,9.8826,TNO_1,NA,NA,AAR_8800,9050,40,Early Holocene,10261-10162,Maglemosian,Type 3/Trunderup-type,Andersen and Petersen 2009
+Skalbjerg,Denmark,55.3677,10.1501,SKL_1,NA,SKL_1_basis,AAR_8796,9250,60,Early Holocene,10569-10254,Maglemosian,Type 2/Tjornelunde-type,Andersen and Petersen 2009
+Skellingsted Mose,Denmark,55.5899,11.4621,SKM_1,SKM_1_tip,NA,OxA_38342,9261,46,Early Holocene,10571-10278,Maglemosian,no information,Jensen et al. 2021
+Vallensgard Mose,Denmark,55.1604,14.8669,VLM_1,VLM_1_tip,VLM_1_basis,AAR_9297,9280,65,Early Holocene,10650-10252 ,Maglemosian,Type 5/Vallensgard-type,Andersen and Petersen 2009
+Sandlyng Mose,Denmark,55.5521,11.618,SNM_1,NA,SNM_1_basis,AAR_9296,9905,65,Early Holocene,11684-11201,Ahrensburgian,Type 1/Sandlyng-type,Andersen and Petersen 2009
+Victoria Cave,England,54.0803,-2.27528,VCV_1,NA,VCV_1_basis,OxA_2607,10810,100,Late Pleistocene,13054 12619,NA,no information,Lord et al. 2007
+Earls Barton,England,52.2668,0.7528,ERB_1,NA,NA,OxA_500,9240,160,Early Holocene,11075-9929,NA,no information,Cook and Barton 1986
+Sproughton ,England,52.062411,1.095272,SPR_1,NA,SPR_1_basis,OxA_15219,10960,50,Late Pleistocene,13060-12757,NA,no information,Jacobi et al. 2009
+Sproughton ,England,52.062411,1.095272,SPR_2,SPR_2_tip,NA,OxA_14943,11485,60,Late Pleistocene,13484-13193,NA,Duvensee,Jacobi et al. 2009
+Bois Ragot,France,46.366669,0.683333,BRT_1,BRT_1_tip,BRT_1_basis,OxA_2754,11640,55,Late Pleistocene,13600-13355,Azilian,Class 1,Dujardin and Oberlin 2005
+Saint Michel,France,43.10174,-0.43202,STM_1,STM_1_tip,NA,OxA_28088 ,11965,55,Late Pleistocene,14036-13613 ,Magdalenian,H2,Petillon et al. 2015
+Isturitz,France,43.3667,-1.19611,IST_1,IST_1_tip,NA,OxA_28085,13095,55,Late Pleistocene,15896-15512,Magdalenian,H2 ,Barshay-Szmidt et al. 2016; Petillon 2016
+Morin,France,44.80798,0.1036,MOR_2,NA,NA,OxA_26670,12470,60,Late Pleistocene,14992-14304,Magdalenian,H1,Barshay-Szmidt et al. 2016
+Morin,France,44.80798,0.1036,MOR_1,NA,NA,OxA_26667,12705,55,Late Pleistocene,15309-14976,Magdalenian,H2 ,Barshay-Szmidt et al. 2016; Petillon 2016
+Platande,France,43.71707,5.89757,PLT_1,NA,NA,GifA_96326,12740,120,Late Pleistocene,15613-14606,Magdalenian,H2 ,Tisnerat-Laborde et al. 1997
+Isturitz,France,43.3667,-1.19611,IST_2,NA,NA,OxA_19833,12470,55,Late Pleistocene,14985-14311 ,Magdalenian,H1,Petillon 2016
+Espalungue,France,43.088379,0.41632,ESP_1,NA,NA,OxA_28086,13120,55,Late Pleistocene,15935-15556,Magdalenian,H1,Petillon et al. 2015; Petillon 2016
+Wyk Föhr,Germany,54.696601,8.569284,WKF_1,WKF_1_tip,WKF_1_basis,KIA_53547,9115,40,Early Holocene,10405-10200 ,NA,Duvensee,Hartz et al. 2019
+Seedorf,Germany,54.046518,10.452803,SEE_1,SEE_1_tip,NA,KIA_53541,9280,40,Early Holocene,10578-10295,NA,Duvensee,Hartz et al. 2019
+Rendsburg,Germany,54.295992,9.69631,REN_1,REN_1_tip,NA,KIA_53540,9415,45,Early Holocene,10756-10510,NA,Duvensee,Hartz et al. 2019
+Travenhorst,Germany,53.998144,10.452923,TRV_2,NA,TRV_2_basis,KIA_53542,9420,45,Early Holocene,10986-10510 ,NA,Duvensee,Hartz et al. 2019
+Groß Rönnau,Germany,53.9724,10.3125,GRR_1,GRR_1_tip,GRR_1_basis,KIA_53544,9455,40,Early Holocene,11062-10572,NA,Duvensee,Hartz et al. 2019
+Travenhorst,Germany,53.998144,10.452923,TRV_1,TRV_1_tip,NA,KIA_53546,9465,45,Early Holocene,11068-10572 ,NA,Duvensee,Hartz et al. 2019
+Mölln,Germany,53.644339,10.648487,MLL_1,MLL_1_tip,NA,KIA_52810,9521,43,Early Holocene,11079-10603,NA,Duvensee,Hartz et al. 2019
+Woltersdorf,Germany,53.579822,10.674183,WOL_1,WOL_1_tip,WOL_1_basis,KIA_53545,9525,45,Early Holocene,11085-10606 ,NA,Kunda,Hartz et al. 2019
+Bützsee,Germany,52.47935,12.57343,BTZ_3,BTZ_3_tip,NA,OxA_8744,9195,61,Early Holocene,10511-10235 ,NA,Pritzerbe,Cziesla and Pettitt 2003
+Bützsee,Germany,52.47935,12.57343,BTZ_4,BTZ_4_tip,NA,OxA_8726,9505,80,Early Holocene,11144-10574 ,NA,Duvensee,Cziesla and Pettitt 2003
+Bützsee,Germany,52.47935,12.57343,BTZ_2,NA,BTZ_2_basis,OxA_8841,10020,60,Early Holocene,11803-11270 ,Ahrensburgian,Havel 12B,Cziesla and Pettitt 2003
+Bützsee,Germany,52.47935,12.57343,BTZ_5,BTZ_5_tip,NA,OxA_8743,10185,65,Late Pleistocene,12423-11403 ,NA,Duvensee,Cziesla and Pettitt 2003
+Bützsee,Germany,52.47935,12.57343,BTZ_1,BTZ_1_tip,BTZ_1_basis,OxA_8742,10480,75,Late Pleistocene,12682-12060,Ahrensburgian,Havel 12B,Cziesla and Pettitt 2003
+Dinslaken,Germany,51.5674,6.7475,DIN_1,DIN_1_tip,DIN_1_basis,Hv,10790,105,Late Pleistocene,12996-12498,NA,Duvensee,Cziesla and Pettitt 2003
+Dinslaken,Germany,51.5674,6.7475,DIN_2,NA,DIN_2_basis,Hv,10790,105,Late Pleistocene,12996-12498,NA,Duvensee,Cziesla and Pettitt 2003
+Bergkamen,Germany,51.6158,7.643,BER_1,BER_1_tip,BER_1_basis,MAMS_11813,11107,42,Late Pleistocene,13104-12909,Federmesser,no information,Baales et al. 2017 
+Lake Lubans,Latvia,56.7667,26.8667,LKL_2,LKL_2_tip,NA,KIA_46260,9780,38,Early Holocene,11256-11166,NA,Type I,Meadows et al. 2014
+Lake Lubans,Latvia,56.7667,26.8667,LKL_4,LKL_4_tip,NA,KIA_46262,9884,43,Early Holocene,11400-11204,NA,Type I,Meadows et al. 2014
+Lake Lubans,Latvia,56.7667,26.8667,LKL_1,LKL_1_tip,NA,KIA_46261,9918,73,Early Holocene,11690-11204,NA,Type I,Meadows et al. 2014
+Lake Lubans,Latvia,56.7667,26.8667,LKL_3,LKL_3_tip,NA,KIA_46259,9993,44,Early Holocene,11697-11268,NA,Type II,Meadows et al. 2014
+Maasvlakte ,The Netherlands,51.9633,4.014728,MSV_2,MSV_2_tip,MSV_2_basis,GrM_19219,9415,40,Early Holocene,10752-10514,NA,no information,Dekker et al. 2021
+Maasvlakte ,The Netherlands,51.9633,4.014728,MSV_1,NA,MSV_1_basis,GrM_19218 ,9495,40,Early Holocene,11070-10587,NA,no information,Dekker et al.2021
+Maasvlakte ,The Netherlands,51.9633,4.014728,MSV_3,NA,NA,GrM_19230,9505,40,Early Holocene,11072-10595 ,NA,no information,Dekker et al.2021
+Leman Ower Banks,North Sea,53.16,2,LOB_1,LOB_1_tip,LOB_1_basis,OxA_1950,11740,150,Late Pleistocene,14013-13315 ,NA,Duvensee,Cziesla and Pettitt 2003
+Węgliny,Poland,51.8235,14.719,WEG_1,NA,WEG_1_basis,Poz_10674,12120,60,Late Pleistocene,14129-13804,Federmesser,no information,Cziesla and Masojć 2007
+Castillo,Spain,43.2924,-3.9656,CST_1,NA,CST_1_basis,OxA_972,12390,130,Late Pleistocene,15035-14071,Magdalenian,Cantabrian,Barandiaran 1988
+Aggarp Mose,Sweden,55.4963,13.233,AGG_1,AGG_1_tip,AGG_1_basis,OxA_2789,8360,90,Early Holocene,9534-9038,Maglemosian,Type 7/Skee-type,Andersen and Petersen 2009
+Rönneholms Mose,Sweden,55.5956,12.9747,RNM_1,RNM_1_tip,NA,OxA_2792,8610,90,Early Holocene,9895-9460,Maglemosian,Type 5/Vallensgard-type,Andersen and Petersen 2009
+Ageröds Mosse,Sweden,55.94107274,13.4076831,RNM_2,RNM_2_tip,NA,Ua_46486,9546,76,Early Holocene,11166-10603,NA,Type 1,Larsson et al. 2019
+Hoek van Holland,The Netherlands,51.9806,4.1342,HVH_1,HVH_1_tip,NA,GrM_19226,8260,40,Early Holocene,9416-9033,NA,no information,Dekker et al. 2021
+Maasvlakte ,The Netherlands,51.9633,4.014728,MSV_4,NA,NA,GrM_19229,8295,40,Early Holocene,9431-9135,NA,no information,Dekker et al. 2021
