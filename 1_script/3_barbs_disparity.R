@@ -162,6 +162,7 @@ disparity_IDdiscrete_armatureOutlines_ggplot_perID_mean_age_calBP <-
                width = 100,
                aes(fill = Location, 
                    group = ID_w_counts)) +
+  scale_x_continuous(limits = c(16000,9500)) +
   scale_x_reverse() +
   theme_bw() + 
   # geom_smooth(method = "gam", formula = y~s(x),
@@ -169,7 +170,8 @@ disparity_IDdiscrete_armatureOutlines_ggplot_perID_mean_age_calBP <-
   #             fullrange = F) +
   # facet_wrap(~Location) +
   ylab("Disparity (sum of variances)") +
-  xlab("Years in calBP")
+  xlab("Years in calBP") +
+  theme(legend.position = "bottom")
 
 disparity_IDdiscrete_armatureOutlines_ggplot_perID_mean_age_calBP
   
@@ -188,6 +190,59 @@ ggsave(disparity_IDdiscrete_armatureOutlines_ggplot_perID_mean_age_calBP,
        units = "in")
 
 
+
+NGRIP1_data <- readr::read_csv(file.path("2_data", "NGRIP1_d18O_and_dust_5cm.csv")) %>% 
+  select(c(`Delta O18 (permil)`, `GICC05 age (yr b2k)`))
+NGRIP2_data <- readr::read_csv(file.path("2_data", "NGRIP2_d18O_and_dust_5cm.csv")) %>% 
+  select(c(`Delta O18 (permil)`, `GICC05 age (yr b2k)`))
+
+NGRIP_data <- rbind(NGRIP1_data, NGRIP2_data)
+
+NGRIP_data$`GICC05 age (yr b2k)` <- NGRIP_data$`GICC05 age (yr b2k)` - 50 # to fit the calBP, since they have 1950 as "0"
+
+NGRIP_data_subset <- 
+  subset(NGRIP_data, 
+       `GICC05 age (yr b2k)` > min(disparity_df_IDdiscrete_armatureOutlines_perID_mean_age_calBP$mean_age_calBP,
+                                   na.rm = T) &
+         `GICC05 age (yr b2k)` < max(disparity_df_IDdiscrete_armatureOutlines_perID_mean_age_calBP$mean_age_calBP,
+                                     na.rm = T)) %>% 
+  select(c(`Delta O18 (permil)`, `GICC05 age (yr b2k)`))
+
+NGRIP_data_subset$popoloch <- scales::rescale(NGRIP_data_subset$`Delta O18 (permil)`, to = c(100,150))
+
+# NGRIP_data_subset$`Delta O18 (permil)` <- (NGRIP_data_subset$`Delta O18 (permil)`+150)
+
+
+ngrip_plot <-
+  ggplot(data = NGRIP_data_subset) +
+  geom_line(aes(x = `GICC05 age (yr b2k)`,
+                y = `Delta O18 (permil)`,
+                alpha = 0.8)) +
+  geom_smooth(aes(x = `GICC05 age (yr b2k)`, 
+                  y = `Delta O18 (permil)`,
+                  color = "red"),
+              span = 0.001) +
+  scale_x_continuous(limits = c(16000,9500)) +
+  scale_x_reverse() +
+  theme_bw() + 
+  ylab("Delta O18 (permil)") +
+  xlab("Years BP") +
+  theme(legend.position = "none")
+
+# disparity_IDdiscrete_armatureOutlines_ggplot_perID_mean_age_calBP + 
+#   annotation_custom(ggplotGrob(ngrip_plot), 
+#                     xmin = 900, xmax = 1900,
+#                     ymin = 50, ymax = 100)
+
+
+cowplot::plot_grid(
+  ngrip_plot,
+  disparity_IDdiscrete_armatureOutlines_ggplot_perID_mean_age_calBP,
+  labels = "AUTO", ncol = 1
+)
+
+# # Function factory for secondary axis transforms, from https://stackoverflow.com/a/66055331
+# library(scales)
 
 
 ######################################################
