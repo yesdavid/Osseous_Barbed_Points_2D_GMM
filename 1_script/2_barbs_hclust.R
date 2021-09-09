@@ -2,6 +2,7 @@ library(Momocs)
 library(ggplot2)
 library(NbClust)
 library(ggtree)
+library(readr)
 
 rm(list=ls())
 
@@ -31,6 +32,19 @@ point_info <- subset(point_info_raw_barb_IDs, ID_barb %in% names(open_outlines_r
 open_outlines <- Momocs::Opn(x = open_outlines_raw$coo,
                              fac = point_info)
 
+
+# library(splitstackshape)
+# open_outlines_barbs_stratified <- splitstackshape::stratified(open_outlines$fac,
+#                                                               group = c("ID"),
+#                                                               size = 5,
+#                                                               replace = F,
+#                                                               bothSets = F)
+# 
+# 
+# open_outlines <- Momocs::filter(open_outlines,
+#                                 ID_barb %in% open_outlines_barbs_stratified$ID_barb)
+
+
 ## dfourier
 open_outlines_dfourier <- Momocs::dfourier(open_outlines)           # discrete cosine transform.
 
@@ -47,8 +61,23 @@ scree_plot <- Momocs::scree_plot(open_outlines_PCA,
 
 scree_plot
 
-# minimum_no_of_pcs <- ncol(open_outlines_PCA$x)
-minimum_no_of_pcs <- 4
+scree_plot_height <- 8
+scree_plot_width <- 8
+ggsave(scree_plot,
+       filename = file.path(output_dir, "barbs_scree_plot.svg"),
+       height = scree_plot_height,
+       width = scree_plot_width,
+       units = "in")
+ggsave(scree_plot,
+       filename = file.path(output_dir, "barbs_scree_plot.png"),
+       height = scree_plot_height,
+       width = scree_plot_width,
+       units = "in")
+
+
+
+minimum_no_of_pcs <- ncol(open_outlines_PCA$x)
+# minimum_no_of_pcs <- 4
 
 gg <- Momocs::PCcontrib(open_outlines_PCA,
                         nax = 1:5,
@@ -62,6 +91,18 @@ pc_contrib_plot <- gg$gg +
 pc_contrib_plot
 
 
+pc_contrib_plot_height <- 8
+pc_contrib_plot_width <- 8
+ggsave(pc_contrib_plot,
+       filename = file.path(output_dir, "barbs_pc_contrib_plot.svg"),
+       height = pc_contrib_plot_height,
+       width = pc_contrib_plot_width,
+       units = "in")
+ggsave(pc_contrib_plot,
+       filename = file.path(output_dir, "barbs_pc_contrib_plot.png"),
+       height = pc_contrib_plot_height,
+       width = pc_contrib_plot_width,
+       units = "in")
 
 
 
@@ -88,7 +129,7 @@ silhouette_plot <- ggplot(TP_NbClust_df, aes(x = NClust, y = Silhouette)) + geom
 silhouette_plot
 
 
-n_clusters <- 6 
+n_clusters <- 3 
 
 color_palette <- cbbPalette <- c("#E69F00", "#56B4E9", "#009E73", "#FF6347", "#0072B2", "#D55E00", "#CC79A7")
 
@@ -97,8 +138,8 @@ current_treecut <- data.frame(ID_barb = ward_hclust$labels,
                               cluster = as.factor(as.data.frame(cutree(ward_hclust,
                                                                        k = n_clusters))[[1]]))
 
-current_treecut <- dplyr::left_join(point_info, current_treecut, by = "ID_barb")
-
+# current_treecut <- dplyr::left_join(point_info, current_treecut, by = "ID_barb")
+current_treecut <- dplyr::left_join(current_treecut,point_info, by = "ID_barb")
 
 open_outlines_w_cluster <- Momocs::Opn(open_outlines$coo,
                                        fac = current_treecut)
@@ -106,7 +147,7 @@ open_outlines_w_cluster <- Momocs::Opn(open_outlines$coo,
 mypath_svg <- file.path(output_dir, "open_outlines_panel_barbs_w_ID")
 svg(file=mypath_svg, width = 22, height = 22)
 Momocs::panel(open_outlines_w_cluster, 
-              names = T)
+              fac = "cluster")
 dev.off()
 
 
@@ -139,17 +180,17 @@ names(shapes_countries) <- countries
 
 #### PCA plot w cluster
 
-Momocs::plot_PCA(open_outlines_w_cluster_PCA, 
-                 ~ID,
-                 labelpoints = T,
-                 legend = T,
-                 morphospace = T,
-                 chull = F,
-                 chullfilled = T, 
-                 center_origin = F)
+# Momocs::plot_PCA(open_outlines_w_cluster_PCA, 
+#                  ~ID,
+#                  labelpoints = T,
+#                  legend = T,
+#                  morphospace = T,
+#                  chull = F,
+#                  chullfilled = T, 
+#                  center_origin = F)
 
 
-a <- ggplot(data = open_outlines_w_cluster_PCA_df, 
+  a <- ggplot(data = open_outlines_w_cluster_PCA_df, 
             aes(shape = Typology, 
                 color = Period, 
                 label = ID)) +
@@ -179,6 +220,13 @@ b <- a + aes(x = PC1, y = PC2) +
 # guides(color = FALSE, fill = FALSE)
 b
 
+c <- a + aes(x = PC1, y = PC3) +
+  xlab(paste0("PC1 (", round(open_outlines_w_cluster_PCA$eig[1]*100, digits = 0), "%)")) +
+  ylab(paste0("PC3 (", round(open_outlines_w_cluster_PCA$eig[3]*100, digits = 0), "%)")) #+
+# guides(color = FALSE, fill = FALSE)
+
+
+
 barbs_PCA_pc1pc2_height <- 8
 barbs_PCA_pc1pc2_width <- 8
 ggsave(b,
@@ -191,6 +239,44 @@ ggsave(b,
        width = barbs_PCA_pc1pc2_width,
        height = barbs_PCA_pc1pc2_height,
        units = "in")
+
+ggsave(c,
+       filename = file.path(output_dir, "barbs_PCA_pc1pc3.svg"),
+       width = barbs_PCA_pc1pc2_width,
+       height = barbs_PCA_pc1pc2_height,
+       units = "in")
+ggsave(c,
+       filename = file.path(output_dir, "barbs_PCA_pc1pc3.png"),
+       width = barbs_PCA_pc1pc2_width,
+       height = barbs_PCA_pc1pc2_height,
+       units = "in")
+
+
+
+right_col <- cowplot::plot_grid(scree_plot, pc_contrib_plot, labels = c('B', 'C'), label_size = 12, ncol =1, align = "h")
+barbs_cowplot <- cowplot::plot_grid(b, right_col, 
+                                   labels = c('A', ''), 
+                                   label_size = 12, 
+                                   ncol = 2, 
+                                   align = "v",
+                                   rel_widths = c(2,1.5))
+
+barbs_cowplot_height <- 8
+barbs_cowplot_width <- 16
+ggsave(barbs_cowplot,
+       filename = file.path(output_dir, "barbs_cowplot.svg"),
+       width = barbs_cowplot_width,
+       height = barbs_cowplot_height,
+       units = "in",
+       bg = "white")
+ggsave(barbs_cowplot,
+       filename = file.path(output_dir, "barbs_cowplot.png"),
+       width = barbs_cowplot_width,
+       height = barbs_cowplot_height,
+       units = "in",
+       bg = "white")
+
+
 
 # mean shapes
 min_no_of_coordinates <- list()

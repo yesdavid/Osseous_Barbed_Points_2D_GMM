@@ -184,6 +184,32 @@ ggsave(b,
        height = bases_PCA_pc1pc2_height,
        units = "in")
 
+
+
+right_col <- cowplot::plot_grid(scree_plot, pc_contrib_plot, labels = c('B', 'C'), label_size = 12, ncol =1, align = "h")
+bases_cowplot <- cowplot::plot_grid(b, right_col, 
+                                   labels = c('A', ''), 
+                                   label_size = 12, 
+                                   ncol = 2, 
+                                   align = "v",
+                                   rel_widths = c(2,1.5))
+
+bases_cowplot_height <- 8
+bases_cowplot_width <- 16
+ggsave(bases_cowplot,
+       filename = file.path(output_dir, "bases_cowplot.svg"),
+       width = bases_cowplot_width,
+       height = bases_cowplot_height,
+       units = "in",
+       bg = "white")
+ggsave(bases_cowplot,
+       filename = file.path(output_dir, "bases_cowplot.png"),
+       width = bases_cowplot_width,
+       height = bases_cowplot_height,
+       units = "in",
+       bg = "white")
+
+
 # mean shapes
 min_no_of_coordinates <- list()
 for (cluster_index in 1:n_clusters){

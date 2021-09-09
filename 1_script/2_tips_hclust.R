@@ -33,25 +33,54 @@ open_outlines_PCA <- Momocs::PCA(open_outlines_dfourier,
 
 
 scree_plot <- Momocs::scree_plot(open_outlines_PCA,
-                                 nax = 1:5) +  
-  ggplot2::theme_bw()
+                                 nax = 1:3) +  
+  ggplot2::theme_bw() +
+  theme(text = element_text(size=20))
 
 scree_plot
+scree_plot_height <- 8
+scree_plot_width <- 8
+ggsave(scree_plot,
+       filename = file.path(output_dir, "tips_scree_plot.svg"),
+       height = scree_plot_height,
+       width = scree_plot_width,
+       units = "in")
+ggsave(scree_plot,
+       filename = file.path(output_dir, "tips_scree_plot.png"),
+       height = scree_plot_height,
+       width = scree_plot_width,
+       units = "in")
 
-# minimum_no_of_pcs <- ncol(open_outlines_PCA$x)
-minimum_no_of_pcs <- 4
+
+
+minimum_no_of_pcs <- ncol(open_outlines_PCA$x)
+# minimum_no_of_pcs <- 4
 
 gg <- Momocs::PCcontrib(open_outlines_PCA,
-                        nax = 1:5,
+                        nax = 1:3,
                         sd.r = c(-1.5,-1,0,1,1.5))
 pc_contrib_plot <- gg$gg + 
   theme_bw() +
   theme(axis.text.x=element_blank(),
         axis.ticks.x=element_blank(),
         axis.text.y=element_blank(),
-        axis.ticks.y=element_blank())
+        axis.ticks.y=element_blank(),
+        text = element_text(size=20))
 pc_contrib_plot
 
+
+pc_contrib_plot_height <- 8
+pc_contrib_plot_width <- 8
+ggsave(pc_contrib_plot,
+       filename = file.path(output_dir, "tips_pc_contrib_plot.svg"),
+       height = pc_contrib_plot_height,
+       width = pc_contrib_plot_width,
+       units = "in")
+ggsave(pc_contrib_plot,
+       filename = file.path(output_dir, "tips_pc_contrib_plot.png"),
+       height = pc_contrib_plot_height,
+       width = pc_contrib_plot_width,
+       units = "in")
 
 
 
@@ -112,7 +141,7 @@ open_outlines_w_cluster_PCA <- Momocs::PCA(open_outlines_w_cluster_dfourier,
 
 
 open_outlines_w_cluster_PCA_df <- as.data.frame(open_outlines_w_cluster_PCA$x)
-open_outlines_w_cluster_PCA_df$Cluster <- open_outlines_w_cluster_PCA$fac$cluster
+open_outlines_w_cluster_PCA_df$Cluster <- as.factor(paste("Cluster", open_outlines_w_cluster_PCA$fac$cluster))
 open_outlines_w_cluster_PCA_df$Country <- as.factor(open_outlines_w_cluster_PCA$fac$Location)
 open_outlines_w_cluster_PCA_df$ID <- as.factor(open_outlines_w_cluster_PCA$fac$ID)
 open_outlines_w_cluster_PCA_df$Period <- as.factor(open_outlines_w_cluster_PCA$fac$Period)
@@ -133,14 +162,14 @@ names(shapes_countries) <- countries
 
 #### PCA plot w cluster
 
-Momocs::plot_PCA(open_outlines_w_cluster_PCA, 
-                 ~cluster, 
-                 labelpoints = T,
-                 legend = T,
-                 morphospace = T,
-                 chull = F,
-                 chullfilled = T, 
-                 center_origin = F)
+# Momocs::plot_PCA(open_outlines_w_cluster_PCA, 
+#                  ~cluster, 
+#                  labelpoints = T,
+#                  legend = T,
+#                  morphospace = T,
+#                  chull = F,
+#                  chullfilled = T, 
+#                  center_origin = F)
 
 
 a <- ggplot(data = open_outlines_w_cluster_PCA_df, 
@@ -148,15 +177,21 @@ a <- ggplot(data = open_outlines_w_cluster_PCA_df,
                 color = Period, 
                 label = ID)) +
   geom_point(size = 5) +
-  geom_text(hjust = -.3) +
-  coord_fixed(ratio =1) +
+  shadowtext::geom_shadowtext(hjust = -.3, 
+                              size = 6,
+                              bg.color = "white") + 
+  # coord_fixed(ratio =1) +
   theme_classic() +
-  theme(legend.position = "right",
-        axis.title = element_text(size = 14),
-        axis.text = element_text(size = 12),
+  theme(legend.position = "bottom",
+        axis.title = element_text(size = 16),
+        axis.text = element_text(size = 16),
         legend.text = element_text(size = 14),
         legend.title = element_text(size = 16)) +
-  # scale_fill_manual(values = color_palette) +
+  guides(shape = guide_legend(nrow =7,
+                              title.position = c("top")),
+         color = guide_legend(nrow =7,
+                              title.position = c("top"))) +
+  scale_fill_manual(values = color_palette) +
   # scale_shape_manual(values=shapes_countries) +
   scale_shape_manual(values = shapes_types) +
   geom_hline(yintercept=0, linetype="dashed", alpha = 0.5) + 
@@ -164,14 +199,25 @@ a <- ggplot(data = open_outlines_w_cluster_PCA_df,
   coord_cartesian(xlim = c(min(open_outlines_w_cluster_PCA_df[,c("PC1")]) + min(open_outlines_w_cluster_PCA_df[,c("PC1")])*0.1, 
                            max(open_outlines_w_cluster_PCA_df[,c("PC1")]) + max(open_outlines_w_cluster_PCA_df[,c("PC1")])*0.1),
                   ylim = c(min(open_outlines_w_cluster_PCA_df[,c("PC2")]) + min(open_outlines_w_cluster_PCA_df[,c("PC2")])*0.1, 
-                           max(open_outlines_w_cluster_PCA_df[,c("PC2")]) + max(open_outlines_w_cluster_PCA_df[,c("PC2")])*0.1))
+                           max(open_outlines_w_cluster_PCA_df[,c("PC2")]) + max(open_outlines_w_cluster_PCA_df[,c("PC2")])*0.1)) 
 
 
 b <- a + aes(x = PC1, y = PC2) +
-  xlab(paste0("PC1 (", round(open_outlines_w_cluster_PCA$eig[1]*100, digits = 0), "%)")) +
-  ylab(paste0("PC2 (", round(open_outlines_w_cluster_PCA$eig[2]*100, digits = 0), "%)")) #+
-  # guides(color = FALSE, fill = FALSE)
+  xlab(paste0("PC1 (", round(open_outlines_w_cluster_PCA$eig[1]*100, digits = 1), "%)")) +
+  ylab(paste0("PC2 (", round(open_outlines_w_cluster_PCA$eig[2]*100, digits = 1), "%)")) #+
+# guides(color = FALSE, fill = FALSE)
 b
+
+library(dplyr)
+library(magrittr)
+hull <- open_outlines_w_cluster_PCA_df %>%
+  group_by(Cluster) %>% 
+  slice(chull(PC1, PC2))
+
+b + geom_polygon(data = hull)
+# b + stat_ellipse(aes(fill = Cluster)) 
+b + ggConvexHull::geom_convexhull(alpha = 0.3,aes(color = Cluster))
+
 
 tips_PCA_pc1pc2_height <- 8
 tips_PCA_pc1pc2_width <- 8
@@ -185,6 +231,32 @@ ggsave(b,
        width = tips_PCA_pc1pc2_width,
        height = tips_PCA_pc1pc2_height,
        units = "in")
+
+
+
+right_col <- cowplot::plot_grid(scree_plot, pc_contrib_plot, labels = c('B', 'C'), label_size = 12, ncol =1, align = "h")
+tips_cowplot <- cowplot::plot_grid(b, right_col, 
+                                   labels = c('A', ''), 
+                                   label_size = 12, 
+                                   ncol = 2, 
+                                   align = "v",
+                                   rel_widths = c(2,1.5))
+
+tips_cowplot_height <- 8
+tips_cowplot_width <- 12
+ggsave(tips_cowplot,
+       filename = file.path(output_dir, "tips_cowplot.svg"),
+       width = tips_cowplot_width,
+       height = tips_cowplot_height,
+       units = "in",
+       bg = "white")
+ggsave(tips_cowplot,
+       filename = file.path(output_dir, "tips_cowplot.png"),
+       width = tips_cowplot_width,
+       height = tips_cowplot_height,
+       units = "in",
+       bg = "white")
+
 
 
 # mean shapes
@@ -311,13 +383,13 @@ tree_w_clusterlabels <- ggtree(ward_hclust) %<+% chronozones_TP_df +
   geom_treescale() + 
   scale_colour_discrete(na.translate = F) + 
   #geom_text(aes(label=node)) + # can be used to determine the node numbers for the chosen clusters
-  geom_cladelabel(node=37, label="Cluster 1", align=T, geom='text', offset = 2.5, color=c("#E69F00"), barsize = 2, fontsize = 6) + 
-  geom_cladelabel(node=39, label="Cluster 2", align=T, geom='text', offset = 2.5, color=c("#56B4E9"), barsize = 2, fontsize = 6) + 
-  geom_cladelabel(node=7, label="Cluster 3", align=T, geom='text', offset = 2.5, color=c("#009E73"), barsize = 2, fontsize = 6) +
-  geom_cladelabel(node=38, label="Cluster 4", align=T, geom='text', offset = 2.5, color=c("#FF6347"), barsize = 2, fontsize = 6) +
-  geom_cladelabel(node=12, label="Cluster 5", align=T, geom='text', offset = 2.5, color=c("#0072B2"), barsize = 2, fontsize = 6) + 
-  geom_cladelabel(node=40, label="Cluster 6", align=T, geom='text', offset = 2.5, color=c("#D55E00"), barsize = 2, fontsize = 6) +
-  geom_cladelabel(node=27, label="Cluster 7", align=T, geom='text', offset = 2.5, color=c("#CC79A7"), barsize = 2, fontsize = 6) +
+  geom_cladelabel(node=37, label="Cluster 1", align=T, geom='text', offset = 3, color=c("#E69F00"), barsize = 2, fontsize = 6) + 
+  geom_cladelabel(node=39, label="Cluster 2", align=T, geom='text', offset = 3, color=c("#56B4E9"), barsize = 2, fontsize = 6) + 
+  geom_cladelabel(node=7, label="Cluster 3", align=T, geom='text', offset = 3, color=c("#009E73"), barsize = 2, fontsize = 6) +
+  geom_cladelabel(node=38, label="Cluster 4", align=T, geom='text', offset = 3, color=c("#FF6347"), barsize = 2, fontsize = 6) +
+  geom_cladelabel(node=12, label="Cluster 5", align=T, geom='text', offset = 3, color=c("#0072B2"), barsize = 2, fontsize = 6) + 
+  geom_cladelabel(node=40, label="Cluster 6", align=T, geom='text', offset = 3, color=c("#D55E00"), barsize = 2, fontsize = 6) +
+  geom_cladelabel(node=27, label="Cluster 7", align=T, geom='text', offset = 3, color=c("#CC79A7"), barsize = 2, fontsize = 6) +
   xlim_tree(46) +
   theme(plot.title = element_text(hjust = 0.5),
         legend.text=element_text(size=14),
@@ -339,3 +411,28 @@ ggsave(tree_w_clusterlabels,
        height = tree_w_clusterlabels_height,
        units = "in")
 
+
+library(lemon)
+
+cowplot::plot_grid(tips_cowplot, tree_w_clusterlabels, 
+                                   labels = c('', 'D'), 
+                                   label_size = 12, 
+                                   ncol = 1, 
+                                   align = "v",
+                   rel_heights = c(2,3),
+                   rel_widths = c(1,2))
+
+lemon_grid <- lemon::grid_arrange_shared_legend(b,
+  tree_w_clusterlabels,
+  ncol = 1, nrow =2)
+
+
+right_col_NA <- cowplot::plot_grid(scree_plot, pc_contrib_plot, NULL, NULL,
+                                   labels = c('B', 'C'), 
+                                   label_size = 12, ncol =2, align = "v")
+
+cowplot::plot_grid(lemon_grid, right_col_NA,
+                   labels = c('A', 'D'),
+                   label_size = 12,
+                   ncol = 2, 
+                   align = "v")
