@@ -2,8 +2,11 @@ library(Momocs)
 library(ggplot2)
 library(NbClust)
 library(ggtree)
+library(readr)
 
 rm(list=ls())
+
+current_elementText_size <- 16
 
 point_info_raw <- readr::read_csv(file.path("2_data", "Tsirintoulaki_OPAR_barbed_points_edit.csv"),
                                   col_types = cols(Period = col_factor(levels = c("Late Pleistocene", 
@@ -21,6 +24,10 @@ point_info <- subset(point_info_raw, ID %in% names(open_outlines_raw$coo))
 open_outlines <- Momocs::Opn(x = open_outlines_raw$coo,
                              fac = point_info)
 
+# open_outlines <- Momocs::coo_smoothcurve(open_outlines,
+#                                       n = 200)
+  
+
 
 ## dfourier
 open_outlines_dfourier <- Momocs::dfourier(open_outlines)           # discrete cosine transform.
@@ -35,7 +42,7 @@ open_outlines_PCA <- Momocs::PCA(open_outlines_dfourier,
 scree_plot <- Momocs::scree_plot(open_outlines_PCA,
                                  nax = 1:3) +  
   ggplot2::theme_bw() +
-  theme(text = element_text(size=20))
+  theme(text = element_text(size=current_elementText_size))
 
 scree_plot
 scree_plot_height <- 8
@@ -65,7 +72,7 @@ pc_contrib_plot <- gg$gg +
         axis.ticks.x=element_blank(),
         axis.text.y=element_blank(),
         axis.ticks.y=element_blank(),
-        text = element_text(size=20))
+        text = element_text(size=current_elementText_size))
 pc_contrib_plot
 
 
@@ -110,7 +117,7 @@ silhouette_plot
 
 n_clusters <- 7 
 
-color_palette <- cbbPalette <- c("#E69F00", "#56B4E9", "#009E73", "#FF6347", "#0072B2", "#D55E00", "#CC79A7")
+color_palette <- c("#E69F00", "#56B4E9", "#009E73", "#FF6347", "#0072B2", "#D55E00", "#CC79A7")
 
 ##### tree cut
 current_treecut_df <- data.frame(ID = as.character(names(cutree(ward_hclust,
@@ -183,10 +190,10 @@ a <- ggplot(data = open_outlines_w_cluster_PCA_df,
   # coord_fixed(ratio =1) +
   theme_classic() +
   theme(legend.position = "bottom",
-        axis.title = element_text(size = 16),
-        axis.text = element_text(size = 16),
-        legend.text = element_text(size = 14),
-        legend.title = element_text(size = 16)) +
+        axis.title = element_text(size = current_elementText_size),
+        axis.text = element_text(size = current_elementText_size),
+        legend.text = element_text(size = current_elementText_size-2),
+        legend.title = element_text(size = current_elementText_size)) +
   guides(shape = guide_legend(nrow =7,
                               title.position = c("top")),
          color = guide_legend(nrow =7,
@@ -234,16 +241,21 @@ ggsave(b,
 
 
 
-right_col <- cowplot::plot_grid(scree_plot, pc_contrib_plot, labels = c('B', 'C'), label_size = 12, ncol =1, align = "h")
+right_col <- cowplot::plot_grid(scree_plot, pc_contrib_plot, 
+                                labels = c('B', 'C'), 
+                                label_size = current_elementText_size +8, 
+                                ncol =1, 
+                                align = "h",
+                                rel_heights = c(1.5,2))
 tips_cowplot <- cowplot::plot_grid(b, right_col, 
                                    labels = c('A', ''), 
-                                   label_size = 12, 
+                                   label_size = current_elementText_size +8, 
                                    ncol = 2, 
                                    align = "v",
                                    rel_widths = c(2,1.5))
 
-tips_cowplot_height <- 8
-tips_cowplot_width <- 12
+tips_cowplot_height <- 10
+tips_cowplot_width <- 16
 ggsave(tips_cowplot,
        filename = file.path(output_dir, "tips_cowplot.svg"),
        width = tips_cowplot_width,
@@ -376,28 +388,33 @@ rownames(chronozones_TP_df) <- point_info$ID
 tree_w_clusterlabels <- ggtree(ward_hclust) %<+% chronozones_TP_df + 
   # geom_tiplab(size=3,
   #             aes(color = Location)) +
-  geom_tiplab(size=4, offset = 0.5,
+  geom_tiplab(size=6, offset = 0.5,
               aes(color = Period)) +
   geom_tippoint(aes(shape=Typology, hjust = 1), size = 4) +
   scale_shape_manual(values=shapes_types) +
   geom_treescale() + 
   scale_colour_discrete(na.translate = F) + 
   #geom_text(aes(label=node)) + # can be used to determine the node numbers for the chosen clusters
-  geom_cladelabel(node=37, label="Cluster 1", align=T, geom='text', offset = 3, color=c("#E69F00"), barsize = 2, fontsize = 6) + 
-  geom_cladelabel(node=39, label="Cluster 2", align=T, geom='text', offset = 3, color=c("#56B4E9"), barsize = 2, fontsize = 6) + 
-  geom_cladelabel(node=7, label="Cluster 3", align=T, geom='text', offset = 3, color=c("#009E73"), barsize = 2, fontsize = 6) +
-  geom_cladelabel(node=38, label="Cluster 4", align=T, geom='text', offset = 3, color=c("#FF6347"), barsize = 2, fontsize = 6) +
-  geom_cladelabel(node=12, label="Cluster 5", align=T, geom='text', offset = 3, color=c("#0072B2"), barsize = 2, fontsize = 6) + 
-  geom_cladelabel(node=40, label="Cluster 6", align=T, geom='text', offset = 3, color=c("#D55E00"), barsize = 2, fontsize = 6) +
-  geom_cladelabel(node=27, label="Cluster 7", align=T, geom='text', offset = 3, color=c("#CC79A7"), barsize = 2, fontsize = 6) +
+  geom_cladelabel(node=37, label="Cluster 1", align=T, geom='text', offset = 3, color=color_palette[1], barsize = 2, fontsize = 6) + 
+  geom_cladelabel(node=39, label="Cluster 2", align=T, geom='text', offset = 3, color=color_palette[2], barsize = 2, fontsize = 6) + 
+  geom_cladelabel(node=7, label="Cluster 3", align=T, geom='text', offset = 3, color=color_palette[3], barsize = 2, fontsize = 6) +
+  geom_cladelabel(node=38, label="Cluster 4", align=T, geom='text', offset = 3, color=color_palette[4], barsize = 2, fontsize = 6) +
+  geom_cladelabel(node=12, label="Cluster 5", align=T, geom='text', offset = 3, color=color_palette[5], barsize = 2, fontsize = 6) + 
+  geom_cladelabel(node=40, label="Cluster 6", align=T, geom='text', offset = 3, color=color_palette[6], barsize = 2, fontsize = 6) +
+  geom_cladelabel(node=27, label="Cluster 7", align=T, geom='text', offset = 3, color=color_palette[7], barsize = 2, fontsize = 6) +
   xlim_tree(46) +
-  theme(plot.title = element_text(hjust = 0.5),
-        legend.text=element_text(size=14),
-        legend.title=element_text(size=14))
+  theme(legend.position = "bottom",
+        plot.title = element_text(hjust = 0.5),
+        legend.text=element_text(size=current_elementText_size),
+        legend.title=element_text(size=current_elementText_size)) +
+  guides(shape = guide_legend(nrow =7,
+                              title.position = c("top")),
+         color = guide_legend(nrow =7,
+                              title.position = c("top")))
 
 tree_w_clusterlabels
 
-tree_w_clusterlabels_height <- 12
+tree_w_clusterlabels_height <- 16
 tree_w_clusterlabels_width <- 16
 
 ggsave(tree_w_clusterlabels,
@@ -416,7 +433,7 @@ library(lemon)
 
 cowplot::plot_grid(tips_cowplot, tree_w_clusterlabels, 
                                    labels = c('', 'D'), 
-                                   label_size = 12, 
+                                   label_size = current_elementText_size +8, 
                                    ncol = 1, 
                                    align = "v",
                    rel_heights = c(2,3),
@@ -429,10 +446,10 @@ lemon_grid <- lemon::grid_arrange_shared_legend(b,
 
 right_col_NA <- cowplot::plot_grid(scree_plot, pc_contrib_plot, NULL, NULL,
                                    labels = c('B', 'C'), 
-                                   label_size = 12, ncol =2, align = "v")
+                                   label_size = current_elementText_size +8, ncol =2, align = "v")
 
 cowplot::plot_grid(lemon_grid, right_col_NA,
                    labels = c('A', 'D'),
-                   label_size = 12,
+                   label_size = current_elementText_size +8,
                    ncol = 2, 
                    align = "v")
