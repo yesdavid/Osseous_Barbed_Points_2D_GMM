@@ -45,23 +45,23 @@ scree_plot <- Momocs::scree_plot(open_outlines_PCA,
   theme(text = element_text(size=current_elementText_size))
 
 scree_plot
-scree_plot_height <- 8
-scree_plot_width <- 8
-ggsave(scree_plot,
-       filename = file.path(output_dir, "tips_scree_plot.svg"),
-       height = scree_plot_height,
-       width = scree_plot_width,
-       units = "in")
-ggsave(scree_plot,
-       filename = file.path(output_dir, "tips_scree_plot.png"),
-       height = scree_plot_height,
-       width = scree_plot_width,
-       units = "in")
+# scree_plot_height <- 8
+# scree_plot_width <- 8
+# ggsave(scree_plot,
+#        filename = file.path(output_dir, "tips_scree_plot.svg"),
+#        height = scree_plot_height,
+#        width = scree_plot_width,
+#        units = "in")
+# ggsave(scree_plot,
+#        filename = file.path(output_dir, "tips_scree_plot.png"),
+#        height = scree_plot_height,
+#        width = scree_plot_width,
+#        units = "in")
 
 
 
 minimum_no_of_pcs <- ncol(open_outlines_PCA$x)
-# minimum_no_of_pcs <- 4
+minimum_no_of_pcs
 
 gg <- Momocs::PCcontrib(open_outlines_PCA,
                         nax = 1:3,
@@ -75,19 +75,18 @@ pc_contrib_plot <- gg$gg +
         text = element_text(size=current_elementText_size))
 pc_contrib_plot
 
-
-pc_contrib_plot_height <- 8
-pc_contrib_plot_width <- 8
-ggsave(pc_contrib_plot,
-       filename = file.path(output_dir, "tips_pc_contrib_plot.svg"),
-       height = pc_contrib_plot_height,
-       width = pc_contrib_plot_width,
-       units = "in")
-ggsave(pc_contrib_plot,
-       filename = file.path(output_dir, "tips_pc_contrib_plot.png"),
-       height = pc_contrib_plot_height,
-       width = pc_contrib_plot_width,
-       units = "in")
+# pc_contrib_plot_height <- 8
+# pc_contrib_plot_width <- 8
+# ggsave(pc_contrib_plot,
+#        filename = file.path(output_dir, "tips_pc_contrib_plot.svg"),
+#        height = pc_contrib_plot_height,
+#        width = pc_contrib_plot_width,
+#        units = "in")
+# ggsave(pc_contrib_plot,
+#        filename = file.path(output_dir, "tips_pc_contrib_plot.png"),
+#        height = pc_contrib_plot_height,
+#        width = pc_contrib_plot_width,
+#        units = "in")
 
 
 
@@ -103,11 +102,13 @@ plot(ward_hclust)
 tanged_points_PCA_NbClust_ward <- NbClust::NbClust(data = open_outlines_PCA$x[,1:minimum_no_of_pcs],
                                                    distance = "euclidean",
                                                    method = "ward.D2",
-                                                   index = c("gap", "silhouette"))
+                                                   index = c("silhouette"))
+
 TP_NbClust <- tanged_points_PCA_NbClust_ward$All.index
 TP_NbClust_df <- as.data.frame(TP_NbClust)
-TP_NbClust_df$NClust <- 1:nrow(TP_NbClust)+1
-silhouette_plot <- ggplot(TP_NbClust_df, aes(x = NClust, y = Silhouette)) + geom_point() + geom_line() + theme_bw() +
+TP_NbClust_df$NClust <- 1:nrow(TP_NbClust_df)+1
+
+silhouette_plot <- ggplot(TP_NbClust_df, aes(x = NClust, y = TP_NbClust)) + geom_point() + geom_line() + theme_bw() +
   scale_x_continuous(breaks = seq(2, max(TP_NbClust_df$NClust)+1, by = 1)) +
   xlab("Number of clusters") +
   ylab("Average silhouette value")
@@ -132,20 +133,23 @@ rownames(current_treecut) <- current_treecut$ID
 open_outlines_w_cluster <- Momocs::Opn(open_outlines$coo,
                                        fac = current_treecut)
 
-mypath_svg <- file.path(output_dir, "open_outlines_panel_tips_w_ID")
-svg(file=mypath_svg, width = 8, height = 8)
+# mypath_svg <- file.path(output_dir, "open_outlines_panel_tips_w_ID")
+# svg(file=mypath_svg, width = 8, height = 8)
 Momocs::panel(open_outlines_w_cluster, 
               names = T)
-dev.off()
+# dev.off()
 
-## dfourier
-open_outlines_w_cluster_dfourier <- Momocs::dfourier(open_outlines_w_cluster)           # discrete cosine transform.
+# ## dfourier
+# open_outlines_w_cluster_dfourier <- Momocs::dfourier(open_outlines_w_cluster)           # discrete cosine transform.
+# 
+# ## PCA
+# open_outlines_w_cluster_PCA <- Momocs::PCA(open_outlines_w_cluster_dfourier,
+#                                            fac = current_treecut)             # we calculate a PCA on it
+# # rownames(open_outlines_w_cluster_PCA$x) <- open_outlines_w_cluster_PCA$fac$ID
 
-## PCA
-open_outlines_w_cluster_PCA <- Momocs::PCA(open_outlines_w_cluster_dfourier,
-                                           fac = current_treecut)             # we calculate a PCA on it
-# rownames(open_outlines_w_cluster_PCA$x) <- open_outlines_w_cluster_PCA$fac$ID
+open_outlines_w_cluster_PCA <- open_outlines_PCA
 
+open_outlines_w_cluster_PCA$fac <- current_treecut
 
 open_outlines_w_cluster_PCA_df <- as.data.frame(open_outlines_w_cluster_PCA$x)
 open_outlines_w_cluster_PCA_df$Cluster <- as.factor(paste("Cluster", open_outlines_w_cluster_PCA$fac$cluster))
@@ -195,7 +199,8 @@ a <- ggplot(data = open_outlines_w_cluster_PCA_df,
         legend.text = element_text(size = current_elementText_size-2),
         legend.title = element_text(size = current_elementText_size)) +
   guides(shape = guide_legend(nrow =7,
-                              title.position = c("top")),
+                              title.position = c("top"),
+                              keywidth = 3),
          color = guide_legend(nrow =7,
                               title.position = c("top"))) +
   scale_fill_manual(values = color_palette) +
@@ -215,29 +220,19 @@ b <- a + aes(x = PC1, y = PC2) +
 # guides(color = FALSE, fill = FALSE)
 b
 
-library(dplyr)
-library(magrittr)
-hull <- open_outlines_w_cluster_PCA_df %>%
-  group_by(Cluster) %>% 
-  slice(chull(PC1, PC2))
 
-b + geom_polygon(data = hull)
-# b + stat_ellipse(aes(fill = Cluster)) 
-b + ggConvexHull::geom_convexhull(alpha = 0.3,aes(color = Cluster))
-
-
-tips_PCA_pc1pc2_height <- 8
-tips_PCA_pc1pc2_width <- 8
-ggsave(b,
-       filename = file.path(output_dir, "tips_PCA_pc1pc2.svg"),
-       width = tips_PCA_pc1pc2_width,
-       height = tips_PCA_pc1pc2_height,
-       units = "in")
-ggsave(b,
-       filename = file.path(output_dir, "tips_PCA_pc1pc2.png"),
-       width = tips_PCA_pc1pc2_width,
-       height = tips_PCA_pc1pc2_height,
-       units = "in")
+# tips_PCA_pc1pc2_height <- 8
+# tips_PCA_pc1pc2_width <- 8
+# ggsave(b,
+#        filename = file.path(output_dir, "tips_PCA_pc1pc2.svg"),
+#        width = tips_PCA_pc1pc2_width,
+#        height = tips_PCA_pc1pc2_height,
+#        units = "in")
+# ggsave(b,
+#        filename = file.path(output_dir, "tips_PCA_pc1pc2.png"),
+#        width = tips_PCA_pc1pc2_width,
+#        height = tips_PCA_pc1pc2_height,
+#        units = "in")
 
 
 
@@ -254,16 +249,18 @@ tips_cowplot <- cowplot::plot_grid(b, right_col,
                                    align = "v",
                                    rel_widths = c(2,1.5))
 
+tips_cowplot
+
 tips_cowplot_height <- 10
 tips_cowplot_width <- 16
 ggsave(tips_cowplot,
-       filename = file.path(output_dir, "tips_cowplot.svg"),
+       filename = file.path(output_dir, "Figure_3_tips_cowplot.svg"),
        width = tips_cowplot_width,
        height = tips_cowplot_height,
        units = "in",
        bg = "white")
 ggsave(tips_cowplot,
-       filename = file.path(output_dir, "tips_cowplot.png"),
+       filename = file.path(output_dir, "Figure_3_tips_cowplot.png"),
        width = tips_cowplot_width,
        height = tips_cowplot_height,
        units = "in",
@@ -414,42 +411,19 @@ tree_w_clusterlabels <- ggtree(ward_hclust) %<+% chronozones_TP_df +
 
 tree_w_clusterlabels
 
-tree_w_clusterlabels_height <- 16
-tree_w_clusterlabels_width <- 16
-
-ggsave(tree_w_clusterlabels,
-       filename = file.path(output_dir, "tips_tree_w_clusterlabels.svg"),
-       width = tree_w_clusterlabels_width,
-       height = tree_w_clusterlabels_height,
-       units = "in")
-ggsave(tree_w_clusterlabels,
-       filename = file.path(output_dir, "tips_tree_w_clusterlabels.png"),
-       width = tree_w_clusterlabels_width,
-       height = tree_w_clusterlabels_height,
-       units = "in")
-
-
-library(lemon)
-
-cowplot::plot_grid(tips_cowplot, tree_w_clusterlabels, 
-                                   labels = c('', 'D'), 
-                                   label_size = current_elementText_size +8, 
-                                   ncol = 1, 
-                                   align = "v",
-                   rel_heights = c(2,3),
-                   rel_widths = c(1,2))
-
-lemon_grid <- lemon::grid_arrange_shared_legend(b,
-  tree_w_clusterlabels,
-  ncol = 1, nrow =2)
+# tree_w_clusterlabels_height <- 16
+# tree_w_clusterlabels_width <- 16
+# 
+# ggsave(tree_w_clusterlabels,
+#        filename = file.path(output_dir, "tips_tree_w_clusterlabels.svg"),
+#        width = tree_w_clusterlabels_width,
+#        height = tree_w_clusterlabels_height,
+#        units = "in")
+# ggsave(tree_w_clusterlabels,
+#        filename = file.path(output_dir, "tips_tree_w_clusterlabels.png"),
+#        width = tree_w_clusterlabels_width,
+#        height = tree_w_clusterlabels_height,
+#        units = "in")
 
 
-right_col_NA <- cowplot::plot_grid(scree_plot, pc_contrib_plot, NULL, NULL,
-                                   labels = c('B', 'C'), 
-                                   label_size = current_elementText_size +8, ncol =2, align = "v")
 
-cowplot::plot_grid(lemon_grid, right_col_NA,
-                   labels = c('A', 'D'),
-                   label_size = current_elementText_size +8,
-                   ncol = 2, 
-                   align = "v")
