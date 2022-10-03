@@ -25,4 +25,10 @@ Imports:
     sp (>= 1.4-2),
     splitstackshape (>= 1.4.8),
     testit (>= 0.11),
-    utils (>= 3.6.3)
+    utils (>= 3.6.3),
+    ggConvexHull,
+    ggridges (>= 0.5.3),
+    lemon (>= 0.4.5),
+    magrittr (>= 2.0.2),
+    RColorBrewer (>= 1.1-2),
+    shadowtext (>= 0.1.1)
