@@ -4,8 +4,6 @@ rm(list=ls())
 
 library(Momocs)
 library(ggplot2)
-library(outlineR)
-
 
 # create closed outlines from prepared images
 cc <- Momocs::import_jpg(list.files(file.path("2_data", "tips"),
@@ -31,13 +29,11 @@ Momocs::panel(out,
 # create "Opn" outlines from closed "Out"-lines
 
 ## call the custom function
-source(file.path("1_script", "open_outlines_from_closed_outlines_v3.R"))
+source(file.path("1_script", "open_outlines_from_closed_outlines_v4.R"))
 
 ### run it
 open_test <- open_outlines_from_closed_outlines(out)
 
-### name coo-list
-names(open_test$coo) <- outline_names
 ### append CSV again
 open_test <- Opn(open_test$coo,
                  fac = ID_df)
@@ -45,8 +41,6 @@ open_test <- Opn(open_test$coo,
 ### center and scale
 out_centered <- Momocs::coo_center(open_test)
 open_test <- Momocs::coo_scale(out_centered)
-
-
 
 ### check result
 Momocs::pile(open_test)
