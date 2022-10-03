@@ -1,4 +1,4 @@
-# overall variability/disparity
+# overall barb variability/disparity
 
 library(ggplot2)
 library(readr)
