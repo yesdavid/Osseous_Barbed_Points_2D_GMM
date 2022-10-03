@@ -177,7 +177,8 @@ a <- ggplot(data = open_outlines_w_cluster_PCA_df,
         legend.text = element_text(size = current_elementText_size-2),
         legend.title = element_text(size = current_elementText_size)) +
   guides(shape = guide_legend(nrow =7,
-                              title.position = c("top")),
+                              title.position = c("top"),
+                              keywidth = 3),
          color = guide_legend(nrow =7,
                               title.position = c("top"))) +
   scale_fill_manual(values = color_palette) +
