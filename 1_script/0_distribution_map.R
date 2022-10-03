@@ -92,13 +92,13 @@ current_distribution_map <-
 plot_width_cm <- 40
 plot_height_cm <- 25
 
-ggsave(filename = file.path("3_output", "distribution_map.svg"),
+ggsave(filename = file.path("3_output", "Figure_1_distribution_map.svg"),
        plot = current_distribution_map,
        device = "svg",
        width = plot_width_cm,
        height = plot_height_cm,
        units = "cm")
-ggsave(filename = file.path("3_output", "distribution_map.png"),
+ggsave(filename = file.path("3_output", "Figure_1_distribution_map.png"),
        plot = current_distribution_map,
        device = "png",
        width = plot_width_cm,
