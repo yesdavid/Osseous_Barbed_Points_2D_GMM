@@ -139,14 +139,8 @@ Momocs::panel(open_outlines_w_cluster,
               names = T)
 # dev.off()
 
-# ## dfourier
-# open_outlines_w_cluster_dfourier <- Momocs::dfourier(open_outlines_w_cluster)           # discrete cosine transform.
-# 
-# ## PCA
-# open_outlines_w_cluster_PCA <- Momocs::PCA(open_outlines_w_cluster_dfourier,
-#                                            fac = current_treecut)             # we calculate a PCA on it
-# # rownames(open_outlines_w_cluster_PCA$x) <- open_outlines_w_cluster_PCA$fac$ID
 
+# add cluster information to outlines
 open_outlines_w_cluster_PCA <- open_outlines_PCA
 
 open_outlines_w_cluster_PCA$fac <- current_treecut
