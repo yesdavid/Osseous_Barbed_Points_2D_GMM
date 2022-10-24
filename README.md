@@ -33,10 +33,10 @@ As the data and code in this repository are complete and self-contained, it can 
 ```
 if(!require("remotes")) install.packages("remotes")
 remotes::install_github("yesdavid/Osseous_Barbed_Points_2D_GMM", 
-repos = "https://mran.microsoft.com/snapshot/2022-10-30")
+repos = "https://mran.microsoft.com/snapshot/2022-09-30")
 ```
 
-This will install the relevant package dependency versions from October 2022, thanks to Microsoft's [CRAN Time Machine](https://mran.microsoft.com/timemachine).
+This will install the relevant package dependency versions from September 2022, thanks to Microsoft's [CRAN Time Machine](https://mran.microsoft.com/timemachine).
 
 ### Licenses:
 
