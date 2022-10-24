@@ -1,10 +1,10 @@
-## Research compendium for 'A 2D geometric morphometric assessment of chrono-cultural trends in the barbed points of the European Final Palaeolithic and Early Mesolithic' 
+## Research compendium for 'A 2D geometric morphometric assessment of chrono-cultural trends in osseous barbed points of the European Final Palaeolithic and Early Mesolithic' 
 
 ### Compendium DOI:
 
 [![DOI](https://zenodo.org/badge/DOI/.svg)](https://doi.org/)
 
-The files at the URL above will generate the results as found in the publication. The files hosted at <https://github.com/yesdavid/Tsirintoulaki_et_al_Barbed_Points> are the development versions and may have changed since the paper was published.
+The files at the URL above will generate the results as found in the publication. The files hosted at <https://github.com/yesdavid/Osseous_Barbed_Points_2D_GMM> are the development versions and may have changed since the paper was published.
 
 ### Maintainer of this repository:
 
@@ -12,11 +12,11 @@ The files at the URL above will generate the results as found in the publication
 
 ### Published in:
 
-[![DOI](https://zenodo.org/badge/DOI/.svg)](https://doi.org/) 
+Tsirintoulaki, K., Matzig, D.N., Riede, F. (submitted). A 2D geometric morphometric assessment of chrono-cultural trends in osseous barbed points of the European Final Palaeolithic and Early Mesolithic. _Open Archaeology_. [![DOI](https://zenodo.org/badge/DOI/.svg)](https://doi.org/).
 
 ### Abstract:
 
-Studies on prehistoric barbed points have relied heavily on typology in linking presumed types to broader techno-complexes and for chronological inference. The accretion of both new finds and of radiocarbon dates obtained directly on such artefacts, however, has revealed that i) shape variability defies neat typological divisions, and that ii) chronological inferences based on typology often fail. To further query these issues and to better understand the design choices and cultural evolutionary dynamics within this artefact class, we present a 2D whole-outline geometric morphometric analysis of 50 directly dated Late Pleistocene and Early Holocene barbed points from primarily northern and western Europe. The results indicate that a) different components (tip, base, barbs) of these artefacts were subject to varying design constraints and that b) there is no clear-cut distinction between Final Palaeolithic and Mesolithic point traditions. Different techno-functional components evolved at various rates while specimen assigned to the same type and/or technocomplex only occasionally are morphologically similar. The results reflect a relatively low level of normativity for this artefact class and repeated convergence on similar design elements. We propose that interpretations linked to cultural dynamics,individual craft agency and repeated convergence on locally optimal designs may offer more satisfying avenues for thinking about the barbed points of this period.
+Studies on prehistoric osseous barbed points have relied heavily on typology in linking presumed types to broader techno-complexes and for chronological inference. The accretion of both new finds and of radiocarbon dates obtained directly on such artefacts, however, has revealed that i) shape variability defies neat typological divisions, and that ii) chronological inferences based on typology often fail. To further query these issues and to better understand the design choices and cultural evolutionary dynamics within this artefact class, we present a 2D whole-outline geometric morphometric analysis of 50 directly dated Late Pleistocene and Early Holocene osseous barbed points from primarily northern and western Europe. The results indicate that a) different components (tip, base, barbs) of these artefacts were subject to varying design constraints and that b) there is no clear-cut distinction between Final Palaeolithic and Mesolithic point traditions. Different techno-functional components evolved at various rates while specimens assigned to the same type and/or techno-complex only occasionally are morphologically similar. The results reflect a relatively low level of normativity for this artefact class and repeated convergence on similar design elements. We propose that interpretations linked to cultural dynamics, individual craft agency and repeated convergence on locally optimal designs may offer more satisfying avenues for thinking about the barbed points of this period.
 
 ### Keywords: 
 
@@ -32,7 +32,7 @@ As the data and code in this repository are complete and self-contained, it can 
 
 ```
 if(!require("remotes")) install.packages("remotes")
-remotes::install_github("yesdavid/Tsirintoulaki_et_al_Barbed_Points", 
+remotes::install_github("yesdavid/Osseous_Barbed_Points_2D_GMM", 
 repos = "https://mran.microsoft.com/snapshot/2022-10-30")
 ```
 
