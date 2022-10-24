@@ -1,8 +1,8 @@
 ## Research compendium for 'A 2D geometric morphometric assessment of chrono-cultural trends in osseous barbed points of the European Final Palaeolithic and Early Mesolithic' 
 
 ### Compendium DOI:
-
-[![DOI](https://zenodo.org/badge/DOI/.svg)](https://doi.org/)
+ 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.7244045.svg)](https://doi.org/10.5281/zenodo.7244045)
 
 The files at the URL above will generate the results as found in the publication. The files hosted at <https://github.com/yesdavid/Osseous_Barbed_Points_2D_GMM> are the development versions and may have changed since the paper was published.
 
