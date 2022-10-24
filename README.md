@@ -32,10 +32,11 @@ As the data and code in this repository are complete and self-contained, it can 
 
 ```
 if(!require("remotes")) install.packages("remotes")
-remotes::install_github("yesdavid/Tsirintoulaki_et_al_Barbed_Points", repos = "https://mran.microsoft.com/snapshot/2022-10-30")
+remotes::install_github("yesdavid/Tsirintoulaki_et_al_Barbed_Points", 
+repos = "https://mran.microsoft.com/snapshot/2022-10-30")
 ```
 
-This will install the relevant package dependency versions from October 2021, thanks to Microsoft's [CRAN Time Machine](https://mran.microsoft.com/timemachine).
+This will install the relevant package dependency versions from October 2022, thanks to Microsoft's [CRAN Time Machine](https://mran.microsoft.com/timemachine).
 
 ### Licenses:
 
