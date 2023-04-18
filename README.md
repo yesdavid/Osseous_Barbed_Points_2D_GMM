@@ -12,7 +12,7 @@ The files at the URL above will generate the results as found in the publication
 
 ### Published in:
 
-Tsirintoulaki, K., Matzig, D.N., Riede, F. (submitted). A 2D geometric morphometric assessment of chrono-cultural trends in osseous barbed points of the European Final Palaeolithic and Early Mesolithic. _Open Archaeology_. [![DOI](https://zenodo.org/badge/DOI/10.1515/opar-2022-0276.svg)](https://doi.org/10.1515/opar-2022-0276).
+Tsirintoulaki, K., Matzig, D.N., Riede, F. (2023). A 2D geometric morphometric assessment of chrono-cultural trends in osseous barbed points of the European Final Palaeolithic and Early Mesolithic. _Open Archaeology_. [![DOI](https://zenodo.org/badge/DOI/10.1515/opar-2022-0276.svg)](https://doi.org/10.1515/opar-2022-0276).
 
 ### Abstract:
 
